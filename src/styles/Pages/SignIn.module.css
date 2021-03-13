@@ -1,0 +1,87 @@
+.container {
+  display: flex;
+  height: 100vh;
+  background: var(--blue-01);
+}
+
+.container section {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.container section:last-child {
+  justify-content: center;
+}
+
+.container section > img {
+  width: 100%;
+}
+
+.container section .formContainer {
+}
+
+.container section .formContainer > img {
+  margin-bottom: 8.31rem;
+}
+
+.container section .formContainer h1 {
+  color: var(--white);
+  font-size: 2.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.container section .formContainer span {
+  color: #b2b9ff;
+  font-size: 1.33rem;
+  display: flex;
+  align-items: center;
+  line-height: 30px;
+  font-weight: 500;
+  margin-bottom: 2.5rem;
+}
+
+.container section .formContainer span img {
+  margin-right: 1.5rem;
+}
+
+.container section .formContainer > div {
+  display: flex;
+}
+
+.container section .formContainer > div input {
+  color: #fff;
+  width: 100%;
+  padding: 25px;
+  font-size: 1.25rem;
+  background: linear-gradient(to left, var(--blue-01), var(--blue-02));
+  border: 0;
+  outline: 0;
+}
+
+.container section .formContainer > div input::-webkit-input-placeholder {
+  color: #b2b9ff;
+}
+
+.container section .formContainer > div button {
+  width: 80px;
+  border: 0;
+  font-size: 0;
+  align-items: center;
+  background: var(--blue-02);
+  transition: filter 0.2s;
+}
+
+.container section .formContainer > div button.isFilled {
+  background: var(--green);
+}
+
+.container section .formContainer > div button:hover {
+  filter: brightness(0.9);
+}
+
+.container section .formContainer > div button svg {
+  height: 25px;
+  width: 25px;
+  color: var(--white);
+}

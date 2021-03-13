@@ -1,62 +1,64 @@
-import React from "react";
-import { GetServerSideProps } from "next";
+import { useState, FocusEvent, useContext } from "react";
 
-import { CompletedChallenges } from "../Components/CompletedChallenges";
-import { CountDown } from "../Components/CountDown";
-import { ExperienceBar } from "../Components/ExperienceBar";
-import { Profile } from "../Components/Profile";
-import { ChallengeBox } from "../Components/ChallengeBox";
+import styles from "../styles/Pages/SignIn.module.css";
+import { FaArrowRight } from "react-icons/fa";
+import { AuthContext } from "../contexts/AuthContext";
 
-import Head from "next/head";
+export default function SignIn() {
+  const [isFilled, setIsFilled] = useState(false);
+  const [username, setUsername] = useState("");
 
-import styles from "../styles/Pages/Home.module.css";
-import { CountDownProvider } from "../contexts/CountDownConxtext";
-import { ChallengeProvider } from "../contexts/ChallengesContext";
+  const { user, signIn } = useContext(AuthContext);
 
-interface HomeProps {
-  level: number;
-  currentExperience: number;
-  challengeCompleted: number;
-}
+  function handleBlur(event: FocusEvent<HTMLInputElement>) {
+    if (event.target.value) {
+      setIsFilled(true);
+    } else {
+      setIsFilled(false);
+    }
+  }
 
-export default function Home(props: HomeProps) {
-  console.log(props);
+  function handleFocus() {
+    setIsFilled(true);
+  }
+
+  function handleSignIn() {
+    signIn(username);
+  }
+
   return (
-    <ChallengeProvider
-      level={props.level}
-      currentExperience={props.currentExperience}
-      challengeCompleted={props.challengeCompleted}
-    >
-      <div className={styles.container}>
-        <Head>
-          <title>Início | move.it</title>
-        </Head>
-        <ExperienceBar />
-        <CountDownProvider>
-          <section>
-            <div>
-              <Profile />
-              <CompletedChallenges />
-              <CountDown />
-            </div>
-            <div>
-              <ChallengeBox />
-            </div>
-          </section>
-        </CountDownProvider>
-      </div>
-    </ChallengeProvider>
+    <div className={styles.container}>
+      <section>
+        <img src="/simbolo.png" alt="moveit" />
+      </section>
+      <section>
+        <div className={styles.formContainer}>
+          <img src="/signLogo.svg" alt="moveit" />
+          <h1>Bem-vindo</h1>
+          <span>
+            <img src="/githubLogo.png" alt="github" />
+            Faça login com seu Github
+            <br /> para começar
+          </span>
+          <div>
+            <input
+              type="text"
+              placeholder="Digite seu username"
+              onBlur={handleBlur}
+              onFocus={handleFocus}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <button
+              type="button"
+              className={isFilled ? styles.isFilled : ""}
+              onClick={handleSignIn}
+            >
+              <FaArrowRight />
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async (cxt) => {
-  const { level, currentExperience, challengeCompleted } = cxt.req.cookies;
-
-  return {
-    props: {
-      level: Number(level),
-      currentExperience: Number(currentExperience),
-      challengeCompleted: Number(challengeCompleted),
-    },
-  };
-};
