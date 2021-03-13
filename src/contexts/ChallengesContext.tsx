@@ -2,6 +2,7 @@ import { createContext, useState, ReactNode, useEffect } from "react";
 import challenges from "../../challenges.json";
 import Cookie from "js-cookie";
 import { LevelUpModal } from "../Components/LevelUpModal";
+import { GetServerSideProps } from "next";
 
 interface Challenge {
   type: "body" | "eye";
@@ -24,9 +25,9 @@ interface ChallengeContextData {
 
 interface ChallengesProviderProps {
   children: ReactNode;
-  level: number;
-  currentExperience: number;
-  challengeCompleted: number;
+  level?: number;
+  currentExperience?: number;
+  challengeCompleted?: number;
 }
 
 export const ChallengeContext = createContext({} as ChallengeContextData);
@@ -124,3 +125,15 @@ export function ChallengeProvider({
     </ChallengeContext.Provider>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async (cxt) => {
+  const { level, currentExperience, challengeCompleted } = cxt.req.cookies;
+
+  return {
+    props: {
+      level: Number(level),
+      currentExperience: Number(currentExperience),
+      challengeCompleted: Number(challengeCompleted),
+    },
+  };
+};
