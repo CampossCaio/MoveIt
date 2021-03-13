@@ -1,0 +1,81 @@
+@keyframes scale-up {
+  0% {
+    transform: scale(0.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.container {
+  height: 100vh;
+  background: var(--white);
+  max-width: 112px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2rem 0;
+}
+
+.container nav {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.container nav > button {
+  display: flex;
+  height: 5rem;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  cursor: pointer;
+  font-size: 2rem;
+  color: var(--text);
+  background: none;
+  font-size: 0;
+  outline: 0;
+  width: 100%;
+  position: relative;
+}
+
+.container nav > button.selected {
+  color: var(--blue);
+}
+
+.container nav > button:first-child {
+  margin-bottom: 2rem;
+}
+
+.container nav > button > div {
+  height: 100%;
+  width: 0.3rem;
+  background: transparent;
+  position: absolute;
+  left: 0;
+  border-radius: 0 5px 5px 0;
+}
+
+.container nav > button > div.selected {
+  background: var(--blue);
+  animation: scale-up 0.2s;
+}
+
+.container button svg {
+  height: 2rem;
+  width: 2rem;
+}
+
+.container button.btnLogout {
+  border: 0;
+  cursor: pointer;
+  font-size: 2rem;
+  color: var(--red);
+  background: none;
+  font-size: 0;
+  outline: 0;
+}
